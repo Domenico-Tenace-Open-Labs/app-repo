@@ -1,5 +1,4 @@
 # App Repo 📦
-<a href="https://app.commanddash.io/agent?github=https://github.com/DomeT99/app-repo"><img src="https://img.shields.io/badge/AI-Code%20Gen-EB9FDA"></a>
 
 App Repo is a simple web app build with [Nuxt](https://nuxt.com/) and [Prime Vue](https://primevue.org/) for store your favourite app and software in a cloud solution based on [Firebase](https://firebase.google.com/) ☁️
 
