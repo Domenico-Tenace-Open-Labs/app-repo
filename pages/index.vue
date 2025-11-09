@@ -18,7 +18,7 @@ const {
       visible: modalStore.visibleErrorModal,
       position: 'top',
       title: 'Warning',
-      content: `Fields marked with an asterisk are required`,
+      content: `Fill in the data with an asterisk or check the writing form of the URLs`,
       close: () => setErrorModal(),
     }"
   />
