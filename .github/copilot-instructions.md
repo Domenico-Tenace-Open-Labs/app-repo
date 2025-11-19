@@ -68,8 +68,8 @@ This is a Nuxt.js/Vue.js application with the following main structure:
 - PrimeVue (for UI components)
 
 ### Important Commands
-- `npm run dev`: Start development environment
-- `npm run build`: Build for production  
+- `pnpm run dev`: Start development environment
+- `pnpm run build`: Build for production  
 
 ## Security
 - Don't expose sensitive credentials in code
