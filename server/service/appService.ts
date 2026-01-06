@@ -8,8 +8,10 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { App } from "~/types/generic";
+import easyKitUtils from "easy-kit-utils";
 
 const config = useRuntimeConfig();
+const { isTrue } = easyKitUtils;
 
 export async function tryGetList(): Promise<App[] | undefined> {
   try {
@@ -18,7 +20,7 @@ export async function tryGetList(): Promise<App[] | undefined> {
     );
     let appList: App[] = [];
 
-    if (!querySnapshot.empty) {
+    if (!isTrue(querySnapshot.empty)) {
       const promises = querySnapshot.docs
         .sort((a, b) => ("" + a.data().title).localeCompare(b.data().title))
         .map(async (doc: any) => {

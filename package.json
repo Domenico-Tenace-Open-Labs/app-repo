@@ -12,7 +12,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
     "@vite-pwa/nuxt": "^0.8.0",
-    "easy-kit-utils": "^0.0.2",
+    "easy-kit-utils": "^1.0.0",
     "firebase": "^10.8.1",
     "nuxt": "^3.10.3",
     "pinia": "^2.1.7",

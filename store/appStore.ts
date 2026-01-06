@@ -1,16 +1,11 @@
 import type { Card, Option } from "~/types/components";
 import type { App } from "~/types/generic";
 import type { Filter } from "~/types/store";
-import {
-  isTrue,
-  isUndefined,
-  isEmptyString,
-  isBlankArray,
-  isNull,
-  /// @ts-ignore
-} from "easy-kit-utils";
+import easyKitUtils from "easy-kit-utils";
 
 export const useAppStore = defineStore("app", () => {
+  const { isTrue, isDefined, isEmptyString, isBlankArray, isNull } =
+    easyKitUtils;
   let _appListOriginal = ref<Card[]>([]);
   let appList = ref<Card[]>([]);
   let filters = ref<Filter>({ keyword: "" });
@@ -96,7 +91,7 @@ export const useAppStore = defineStore("app", () => {
   }
 
   function setFilters(filter: Filter) {
-    if (!isUndefined(filter.keyword)) {
+    if (isDefined(filter.keyword)) {
       filters.value.keyword = filter.keyword;
     }
 
@@ -126,7 +121,7 @@ export const useAppStore = defineStore("app", () => {
       (x) =>
         x.title.toLowerCase().includes(filters.value.keyword!.toLowerCase()) ||
         (!isNull(x.description) &&
-          !isUndefined(x.description) &&
+          isDefined(x.description) &&
           !isEmptyString(x.description) &&
           x.description
             .toLowerCase()
@@ -159,14 +154,14 @@ export const useAppStore = defineStore("app", () => {
 
   function _validateForm() {
     if (
-      isUndefined(currentApp.value.platforms) ||
+      !isDefined(currentApp.value.platforms) ||
       isBlankArray(currentApp.value.platforms)
     ) {
       return false;
     }
 
     if (
-      isUndefined(currentApp.value.title) ||
+      !isDefined(currentApp.value.title) ||
       isEmptyString(currentApp.value.title)
     ) {
       return false;
@@ -175,9 +170,8 @@ export const useAppStore = defineStore("app", () => {
     const urlStrict =
       /^(?:(?:https?):\/\/)?(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-5])|(?:(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}))(?::\d{2,5})?(?:\/\S*)?$/;
 
-      
     if (
-      !isUndefined(currentApp.value.website) &&
+      isDefined(currentApp.value.website) &&
       !isEmptyString(currentApp.value.website)
     ) {
       if (!urlStrict.test(currentApp.value.website!)) {
@@ -186,13 +180,13 @@ export const useAppStore = defineStore("app", () => {
     }
 
     if (
-      !isUndefined(currentApp.value.repository) &&
+      isDefined(currentApp.value.repository) &&
       !isEmptyString(currentApp.value.repository)
     ) {
       if (!urlStrict.test(currentApp.value.repository!)) {
         return false;
       }
-    } 
+    }
 
     return true;
   }

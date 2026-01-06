@@ -6,6 +6,7 @@ export default defineNuxtConfig({
       title: "App Repo",
     },
   },
+
   devtools: { enabled: true },
   modules: [
     "nuxt-primevue",
@@ -85,5 +86,8 @@ export default defineNuxtConfig({
   },
   imports: {
     presets: [{ from: "@pinia/nuxt", imports: ["defineStore"] }],
+  },
+  devServer: {
+    port: 3001,
   },
 });

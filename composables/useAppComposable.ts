@@ -1,10 +1,10 @@
 import { useAppStore } from "~/store/appStore";
 import { useModalStore } from "~/store/modalStore";
 import type { App } from "~/types/generic";
-//@ts-ignore: only for now
-import { isUndefined } from "easy-kit-utils";
+import easyKitUtils from "easy-kit-utils";
 
 export const useAppComposable = async () => {
+  const { isDefined } = easyKitUtils;
   const appStore = useAppStore();
   const modalStore = useModalStore();
 
@@ -29,7 +29,7 @@ export const useAppComposable = async () => {
     _setCurrentApp(currentApp);
   }
 
-  function setStateHandleStatusModal(currentApp?: App){ 
+  function setStateHandleStatusModal(currentApp?: App) {
     modalStore.handleStatusModal();
 
     _setCurrentApp(currentApp);
@@ -48,7 +48,7 @@ export const useAppComposable = async () => {
   }
 
   function _setCurrentApp(currentApp?: App) {
-    if (isUndefined(currentApp)) {
+    if (!isDefined(currentApp)) {
       appStore.setCurrentApp({} as App);
     } else {
       appStore.setCurrentApp(currentApp!);
