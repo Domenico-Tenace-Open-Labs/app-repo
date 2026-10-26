@@ -58,7 +58,49 @@ const customChip = {
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ["vuetify-nuxt-module", "@pinia/nuxt"],
+  app: {
+    head: {
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+      title: "App Repo",
+    },
+  },
+
+  modules: ["vuetify-nuxt-module", "@pinia/nuxt", "@vite-pwa/nuxt"],
+  pwa: {
+    manifest: {
+      name: "App Repo",
+      short_name: "App Repo",
+      description: "Simple toolbox for store your favourite applications 📦",
+      theme_color: "#ffffff",
+      icons: [
+        {
+          src: "pwa-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "maskable",
+        },
+      ],
+    },
+    workbox: {
+      navigateFallback: "/pages/index.vue",
+    },
+    registerType: "autoUpdate",
+    devOptions: {
+      enabled: true,
+      type: "module",
+    },
+  },
   vuetify: {
     vuetifyOptions: {
       theme: {
@@ -75,5 +117,8 @@ export default defineNuxtConfig({
         VCard: customVCard,
       },
     },
+  },
+  imports: {
+    presets: [{ from: "@pinia/nuxt", imports: ["defineStore"] }],
   },
 });
