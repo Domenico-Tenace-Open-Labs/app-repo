@@ -137,7 +137,6 @@ function nav(destination: PageId) {
 
         <template v-if="currentUser">
           <VMenu
-            :close-on-content-click="false"
             location="bottom end"
           >
             <template #activator="{ props: menuProps }">
@@ -154,7 +153,7 @@ function nav(destination: PageId) {
               </VAvatar>
             </template>
             <VCard min-width="240" class="pa-2">
-              <div class="px-3 py-2 border-bottom mb-1">
+              <div class="px-3 py-2 border-b mb-1">
                 <p class="text-subtitle-2 font-weight-bold text-truncate">{{ currentUser.name }}</p>
                 <p class="text-caption text-medium-emphasis text-truncate">{{ currentUser.email }}</p>
               </div>
@@ -192,7 +191,7 @@ function nav(destination: PageId) {
     </div>
 
     <!-- Mobile bottom rail -->
-    <div class="d-flex d-md-none align-center justify-space-between border-top mt-3 pt-3 flex-wrap ga-2">
+    <div class="d-flex d-md-none align-center justify-space-between border-t mt-3 pt-3 flex-wrap ga-2">
       <div class="d-flex ga-1">
         <VBtn
           variant="text"
@@ -250,7 +249,7 @@ function nav(destination: PageId) {
             </VAvatar>
           </template>
           <VCard min-width="220" class="pa-2">
-            <div class="px-3 py-2 border-bottom mb-1">
+            <div class="px-3 py-2 border-b mb-1">
               <p class="text-subtitle-2 font-weight-bold text-truncate">{{ currentUser.name }}</p>
               <p class="text-caption text-medium-emphasis text-truncate">{{ currentUser.email }}</p>
             </div>
