@@ -4,6 +4,10 @@
 
 Nuxt 4 web app (`app/` dir layout) — "Tool Sharing Platform": users register, share/rate dev tools, bookmark favorites. **Scaffolding-stage**: only `app/layouts/default.vue` + `app/pages/index.vue` exist; most app yet to build.
 
+For consulting mockup: https://github.com/DomeT99/app-repo-mockup (use `gh_grep`)
+
+For tasks: https://github.com/Domenico-Tenace-Open-Labs/app-repo/issues
+
 **Authoritative target design** in **`docs/`** (see `docs/README.md` index — full tech spec, originally Notion page "📦 App Repo"). Read before building features — it's roadmap. Architectural bedrock, verify before diverging:
 
 - **Client never talks to Firestore directly.** All reads/writes through Nitro `server/api/*` routes via **Firebase Admin SDK** (`firebase-admin`). Business logic + authorization on server, not Security Rules.
