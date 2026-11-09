@@ -122,7 +122,7 @@ function handleSubmit() {
           placeholder="e.g. Supabase, Tailwind Play, Postman"
           variant="outlined"
           density="comfortable"
-          hide-details
+          hide-details="auto"
           :error="!!errors.name"
           :error-messages="errors.name"
           @input="onRules('name', validateName)"
@@ -176,7 +176,7 @@ function handleSubmit() {
           placeholder="e.g. https://supabase.com"
           variant="outlined"
           density="comfortable"
-          hide-details
+          hide-details="auto"
           :error="!!errors.url"
           :error-messages="errors.url"
           @input="onRules('url', validateUrl)"

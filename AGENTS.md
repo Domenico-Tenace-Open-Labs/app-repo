@@ -26,7 +26,7 @@ Note: spec later mentions Tailwind for `ToolCard`, but actual UI lib is **Vuetif
 - `pnpm preview` — serve build locally
 - `postinstall` runs `nuxt prepare` (run manually after adding deps).
 
-**No `lint`, `typecheck`, or `test` script wired** despite `vitest` devDependency. Without adding: typecheck via `pnpm nuxt typecheck` (generated `tsconfig.json` references `.nuxt/*.tsconfig` — plain `tsc` won't work). Add `lint`/`test` scripts yourself; don't assume they exist.
+**No `lint` or `typecheck` script wired; `test` = `vitest run`** (component suite: `@nuxt/test-utils` + `@vue/test-utils` + `happy-dom`; config `vitest.config.ts`, specs in `tests/`). Typecheck: `pnpm nuxt typecheck`/`vue-tsc` not installed — don't assume. Add `lint`/typecheck scripts yourself if needed.
 
 ## Stack & conventions (all set in `nuxt.config.ts` — not per-file)
 

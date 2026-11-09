@@ -20,6 +20,8 @@ const password = ref("");
 
 function handleSubmit() {
   if (!name.value || !email.value || !password.value) return;
+  // Enforce the min-6 rule client-side so a short password can't be sent.
+  if (password.value.length < 6) return;
   emit("submit", {
     name: name.value.trim(),
     email: email.value.trim(),
