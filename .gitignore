@@ -3,6 +3,7 @@
 .data
 .nuxt
 .nitro
+.nuxtrc
 .cache
 dist
 
@@ -22,3 +23,5 @@ logs
 .env
 .env.*
 !.env.example
+
+AGENTS.original.md
