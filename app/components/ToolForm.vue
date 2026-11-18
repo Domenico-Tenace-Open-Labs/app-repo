@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Tool, ToolInput, PricingType } from "#shared/types";
+import type { Category, Tool, ToolInput, PricingType } from "#shared/types";
 import { CATEGORIES } from "#shared/types";
 
 /**
@@ -22,10 +22,39 @@ const name = ref(props.initialTool?.name ?? "");
 const description = ref(props.initialTool?.description ?? "");
 const url = ref(props.initialTool?.url ?? "");
 const pricingType = ref<PricingType>(props.initialTool?.pricingType ?? "FREE");
-const category = ref(props.initialTool?.category || CATEGORIES[0]);
+const category = ref<Category>(toCategory(props.initialTool?.category));
 const tagsInput = ref(props.initialTool?.tags?.join(", ") ?? "");
 
-const errors = reactive<Record<string, string>>({});
+const TOOL_FIELDS = ["name", "description", "url"] as const;
+type ToolField = (typeof TOOL_FIELDS)[number];
+const fieldErrors = reactive<Partial<Record<ToolField, string>>>({});
+
+/**
+ * `Tool.category` is a free-form string in the data model; keep only known options.
+ */
+function toCategory(value: string | undefined): Category {
+  return value !== undefined && CATEGORIES.includes(value as Category)
+    ? (value as Category)
+    : CATEGORIES[0];
+}
+
+/**
+ * Accessor used by the template: direct `fieldErrors[field]` property access in
+ * template expressions makes vue-tsc emit wrong code here (`.value` on a
+ * non-ref), so the errors surface through this function instead.
+ */
+function errorFor(field: ToolField): string | undefined {
+  return fieldErrors[field];
+}
+
+function clearErrors() {
+  for (const field of TOOL_FIELDS) fieldErrors[field] = undefined;
+}
+
+/** Presence of an error = key set to a message; `undefined` means valid. */
+function hasErrors(): boolean {
+  return TOOL_FIELDS.some((field) => fieldErrors[field] !== undefined);
+}
 
 /** Reset form when the edited tool changes (create ↔ edit). */
 watch(
@@ -35,9 +64,9 @@ watch(
     description.value = tool?.description ?? "";
     url.value = tool?.url ?? "";
     pricingType.value = tool?.pricingType ?? "FREE";
-    category.value = tool?.category || CATEGORIES[0];
+    category.value = toCategory(tool?.category);
     tagsInput.value = tool?.tags?.join(", ") ?? "";
-    Object.keys(errors).forEach((k) => delete errors[k]);
+    clearErrors();
   }
 );
 
@@ -66,10 +95,9 @@ function validateUrl() {
   }
 }
 
-function onRules(errorKey: keyof typeof errors, validator: () => string) {
+function onRules(errorKey: ToolField, validator: () => string) {
   const err = validator();
-  if (err) errors[errorKey] = err;
-  else delete errors[errorKey];
+  fieldErrors[errorKey] = err || undefined;
 }
 
 function handleSubmit() {
@@ -78,7 +106,7 @@ function handleSubmit() {
   onRules("description", validateDescription);
   onRules("url", validateUrl);
 
-  if (Object.keys(errors).length) return;
+  if (hasErrors()) return;
 
   const tags = tagsInput.value
     .split(/[\s,]+/)
@@ -123,11 +151,11 @@ function handleSubmit() {
           variant="outlined"
           density="comfortable"
           hide-details="auto"
-          :error="!!errors.name"
-          :error-messages="errors.name"
+          :error="!!errorFor('name')"
+          :error-messages="errorFor('name')"
           @input="onRules('name', validateName)"
         />
-        <p v-if="!errors.name" class="text-caption text-medium-emphasis mt-1">
+        <p v-if="!errorFor('name')" class="text-caption text-medium-emphasis mt-1">
           Between 2 and 150 characters.
         </p>
       </div>
@@ -177,15 +205,15 @@ function handleSubmit() {
           variant="outlined"
           density="comfortable"
           hide-details="auto"
-          :error="!!errors.url"
-          :error-messages="errors.url"
+          :error="!!errorFor('url')"
+          :error-messages="errorFor('url')"
           @input="onRules('url', validateUrl)"
         >
           <template #prepend-inner>
             <AppIcon name="link" :size="16" class="text-medium-emphasis" />
           </template>
         </VTextField>
-        <p v-if="!errors.url" class="text-caption text-medium-emphasis mt-1">
+        <p v-if="!errorFor('url')" class="text-caption text-medium-emphasis mt-1">
           Must start with http:// or https://
         </p>
       </div>
@@ -201,8 +229,8 @@ function handleSubmit() {
           rows="4"
           variant="outlined"
           density="comfortable"
-          :error="!!errors.description"
-          :error-messages="errors.description"
+          :error="!!errorFor('description')"
+          :error-messages="errorFor('description')"
           @input="onRules('description', validateDescription)"
         />
         <div class="d-flex justify-space-between text-caption text-medium-emphasis mt-1">

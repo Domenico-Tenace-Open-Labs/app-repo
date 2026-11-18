@@ -43,7 +43,6 @@ describe("StarButton", () => {
     const wrapper = await mountSuspended(StarButton, {
       props: { isStarred: true, starsCount: 5 },
     });
-    const svg = wrapper.find("svg");
     // Presence of a path is enough; the filled glyph is selected by prop.
     expect(wrapper.find("svg path").exists()).toBe(true);
   });
