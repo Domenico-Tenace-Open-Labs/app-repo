@@ -1,2 +1,10 @@
-allowBuilds:
-  esbuild: set this to true or false
+# pnpm 10 blocks dependency lifecycle scripts unless they are explicitly allowed.
+# esbuild validates its platform binary in postinstall; firebase requires the
+# @firebase/util postinstall to emit dist/postinstall.{js,mjs} (imported at runtime).
+onlyBuiltDependencies:
+  - esbuild
+  - "@firebase/util"
+
+# postinstall only checks dependency version schemes and writes nothing we consume.
+ignoredBuiltDependencies:
+  - protobufjs
