@@ -1,4 +1,6 @@
 <template>
+  <v-app>
     <VitePwaManifest />
-    <v-app><slot /></v-app>
+    <slot />
+  </v-app>
 </template>

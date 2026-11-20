@@ -100,7 +100,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["vuetify-nuxt-module", "@pinia/nuxt", "@vite-pwa/nuxt"],
+  modules: ["vuetify-nuxt-module", "@pinia/nuxt", "@vite-pwa/nuxt", "@nuxt/eslint"],
   pwa: {
     manifest: {
       name: "App Repo",

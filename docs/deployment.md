@@ -21,12 +21,13 @@ The Admin SDK credentials (`FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIRE
 ```json
 {
   "scripts": {
-    "dev":       "nuxt dev",
-    "build":     "nuxt build",
-    "preview":   "nuxt preview",
-    "typecheck": "nuxt typecheck",
-    "lint":      "eslint .",
-    "test":      "vitest"
+    "dev":        "nuxt dev",
+    "build":      "nuxt build",
+    "preview":    "nuxt preview",
+    "typecheck":  "nuxt typecheck",
+    "lint":       "eslint .",
+    "test":       "vitest run",
+    "test:watch": "vitest"
   }
 }
 ```
